@@ -5,6 +5,7 @@ export const GRID_SIZE = 30;
 export const SPIDER_SPEED = 10;
 export const CATCH_RADIUS = 4;
 export const CARGO_LIMIT = 5;
+export const WEB_STRINGS = 1;
 export const RESPAWN_DELAY = 5000; // ms
 export const INSECTS_PER_SPAWN = 5;
 

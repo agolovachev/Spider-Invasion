@@ -31,15 +31,10 @@ export class Insect {
     };
   }
 
-  update(dt: number, spiderPos: { x: number; y: number }, isSpiderFull: boolean, catchRadius: number) {
+  update(dt: number, spiderPos: { x: number; y: number }, isSpiderFull: boolean, isTargeted: boolean) {
     if (this.state === 'caught') return;
 
-    const distToSpider = Math.sqrt(
-      Math.pow(this.position.x - spiderPos.x, 2) + 
-      Math.pow(this.position.y - spiderPos.y, 2)
-    );
-
-    if (distToSpider < catchRadius && !isSpiderFull) {
+    if (isTargeted && !isSpiderFull) {
       this.state = 'beingCaught';
       this.catchProgress += (1 / CATCH_TIMES[this.type]) * dt;
       if (this.catchProgress >= 1) {

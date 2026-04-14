@@ -1,5 +1,5 @@
 import { Insect } from './Insect';
-import { INSECTS_PER_SPAWN, RESPAWN_DELAY, type InsectType, GRID_SIZE } from '../utils/constants';
+import { INSECTS_PER_SPAWN, RESPAWN_DELAY, type InsectType, GRID_SIZE, WEB_STRINGS } from '../utils/constants';
 
 interface SpawnPoint {
   x: number;
@@ -40,9 +40,39 @@ export class Spawner {
   }
 
   update(dt: number, spider: any, catchRadius: number) {
+    // Determine which insects are within radius and find closest ones
+    let withinRadius = this.insects
+      .filter(i => i.state !== 'caught')
+      .map(insect => {
+        const dist = Math.sqrt(
+          Math.pow(insect.position.x - spider.position.x, 2) + 
+          Math.pow(insect.position.y - spider.position.y, 2)
+        );
+        return { insect, dist };
+      })
+      .filter(item => item.dist < catchRadius);
+      
+    // Keep those already being caught
+    const currentlyBeingCaught = withinRadius.filter(item => item.insect.state === 'beingCaught');
+    const targetedInsects = new Set(currentlyBeingCaught.map(item => item.insect));
+
+    // If we have less than WEB_STRINGS, add new targets from the closest available
+    if (targetedInsects.size < WEB_STRINGS) {
+      let availableTargets = withinRadius.filter(item => item.insect.state !== 'beingCaught');
+      availableTargets.sort((a, b) => a.dist - b.dist);
+      
+      for (const target of availableTargets) {
+        if (targetedInsects.size < WEB_STRINGS) {
+          targetedInsects.add(target.insect);
+        } else {
+          break;
+        }
+      }
+    }
+
     // Update existing insects
     this.insects.forEach(insect => {
-      insect.update(dt, spider.position, spider.isFull, catchRadius);
+      insect.update(dt, spider.position, spider.isFull, targetedInsects.has(insect));
     });
 
     // Handle caught insects
