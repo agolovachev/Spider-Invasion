@@ -3,7 +3,7 @@ import { GRID_SIZE } from '../utils/constants';
 export class Nest {
   position = { x: GRID_SIZE / 2, y: GRID_SIZE / 2 }; // Center of the map
   deliveredCount = 0;
-  radius = 30; // World units for collision
+  radius = 1.5; // World units for collision, matches nest visual border
 
   update(spider: any) {
     const dist = Math.sqrt(
