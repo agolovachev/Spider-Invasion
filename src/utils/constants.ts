@@ -1,6 +1,6 @@
 export const TILE_WIDTH = 64;
 export const TILE_HEIGHT = 32;
-export const GRID_SIZE = 40;
+export const GRID_SIZE = 30;
 
 export const SPIDER_SPEED = 10;
 export const CATCH_RADIUS = 4;
@@ -15,15 +15,15 @@ export const CATCH_TIMES = {
 } as const;
 
 export const WANDER_SPEEDS = {
-  fly: 60,
-  butterfly: 45,
-  beetle: 30,
+  fly: 2,
+  butterfly: 2,
+  beetle: 2,
 } as const;
 
 export const WANDER_RADII = {
-  fly: 80,
-  butterfly: 60,
-  beetle: 40,
+  fly: 5,
+  butterfly: 5,
+  beetle: 5,
 } as const;
 
 export type InsectType = keyof typeof CATCH_TIMES;

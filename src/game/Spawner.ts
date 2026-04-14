@@ -1,5 +1,5 @@
 import { Insect } from './Insect';
-import { INSECTS_PER_SPAWN, RESPAWN_DELAY, type InsectType } from '../utils/constants';
+import { INSECTS_PER_SPAWN, RESPAWN_DELAY, type InsectType, GRID_SIZE } from '../utils/constants';
 
 interface SpawnPoint {
   x: number;
@@ -9,20 +9,25 @@ interface SpawnPoint {
 }
 
 export class Spawner {
-  spawnPoints: SpawnPoint[] = [
-    { x: 5, y: 5, type: 'fly', respawnTimers: [] },
-    { x: 15, y: 5, type: 'butterfly', respawnTimers: [] },
-    { x: 5, y: 15, type: 'beetle', respawnTimers: [] },
-    { x: 15, y: 15, type: 'fly', respawnTimers: [] },
-    { x: 10, y: 5, type: 'butterfly', respawnTimers: [] },
-    { x: 10, y: 15, type: 'beetle', respawnTimers: [] },
-    { x: 5, y: 10, type: 'butterfly', respawnTimers: [] },
-    { x: 15, y: 10, type: 'beetle', respawnTimers: [] },
-  ];
+  spawnPoints: SpawnPoint[];
 
   insects: Insect[] = [];
 
   constructor() {
+    const center = GRID_SIZE / 2;
+    const offset = GRID_SIZE / 4;
+    
+    this.spawnPoints = [
+      { x: center - offset, y: center - offset, type: 'fly', respawnTimers: [] },
+      { x: center + offset, y: center - offset, type: 'butterfly', respawnTimers: [] },
+      { x: center - offset, y: center + offset, type: 'beetle', respawnTimers: [] },
+      { x: center + offset, y: center + offset, type: 'fly', respawnTimers: [] },
+      { x: center, y: center - offset, type: 'butterfly', respawnTimers: [] },
+      { x: center, y: center + offset, type: 'beetle', respawnTimers: [] },
+      { x: center - offset, y: center, type: 'butterfly', respawnTimers: [] },
+      { x: center + offset, y: center, type: 'beetle', respawnTimers: [] },
+    ];
+
     this.initialSpawn();
   }
 

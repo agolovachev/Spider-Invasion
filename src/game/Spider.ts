@@ -1,4 +1,4 @@
-import { INSECTS_PER_SPAWN, SPIDER_SPEED, CARGO_LIMIT } from '../utils/constants';
+import { INSECTS_PER_SPAWN, SPIDER_SPEED, CARGO_LIMIT, GRID_SIZE } from '../utils/constants';
 
 export interface Position {
   x: number;
@@ -6,7 +6,7 @@ export interface Position {
 }
 
 export class Spider {
-  position: Position = { x: 10, y: 10 }; // Start near center of 20x20 grid
+  position: Position = { x: GRID_SIZE / 2, y: GRID_SIZE / 2 }; // Start near center of grid
   cargo: any[] = []; // Will be Insect[]
   isFull = false;
   direction = { x: 0, y: 0 };

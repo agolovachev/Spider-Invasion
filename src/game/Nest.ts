@@ -1,5 +1,7 @@
+import { GRID_SIZE } from '../utils/constants';
+
 export class Nest {
-  position = { x: 10, y: 10 }; // Center of the map
+  position = { x: GRID_SIZE / 2, y: GRID_SIZE / 2 }; // Center of the map
   deliveredCount = 0;
   radius = 30; // World units for collision
 

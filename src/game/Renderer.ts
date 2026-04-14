@@ -59,8 +59,8 @@ export class Renderer {
       ...engine.spawner.insects.map(i => ({ type: i, y: i.position.y, x: i.position.x, kind: 'insect' }))
     ];
 
-    // Painter's algorithm: sort by y + x*0.5 to handle isometric depth
-    entities.sort((a, b) => (a.y + a.x * 0.5) - (b.y + b.x * 0.5));
+    // Painter's algorithm: sort by y to handle orthogonal depth
+    entities.sort((a, b) => a.y - b.y);
 
     // 3. Draw Entities
     entities.forEach(ent => {
